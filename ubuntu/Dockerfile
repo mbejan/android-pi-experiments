@@ -1,6 +1,6 @@
 #sudo docker build --network=host --tag=ubuntu:pi .
 #sudo docker rm -f ubuntu; sudo docker run -d -u ubuntu  --net=host --dns=8.8.8.8 --restart always --mount type=bind,source=/data/data/com.termux/files/home/ubuntu,target=/home/ubuntu --mount type=bind,source=/data/export,target=/export --mount type=bind,source=/mnt/Airport_Data/,target=/mnt/Airport_Data --name ubuntu  --security-opt apparmor=unconfined --security-opt seccomp=unconfined --security-opt systempaths=unconfined ubuntu:pi
-from ubuntu:23.10
+from ubuntu:latest
 
 RUN \
     echo "nameserver 8.8.8.8" > /etc/resolv.conf &&\
@@ -9,7 +9,7 @@ RUN \
 
 RUN \
     echo "nameserver 8.8.8.8" > /etc/resolv.conf &&\
-    apt-get install -y tigervnc-xorg-extension xfonts-100dpi xfonts-75dpi xfonts-scalable xfwm4 tigervnc-standalone-server xfce4 xfce4-session xfce4-terminal software-properties-common dbus-x11
+    apt-get install -y tigervnc-xorg-extension xfonts-100dpi xfonts-75dpi xfonts-scalable xfwm4 tigervnc-standalone-server xfce4 xfce4-session xfce4-terminal software-properties-common dbus-x11 qbittorrent docker.io
 
 RUN \
     echo "nameserver 8.8.8.8" > /etc/resolv.conf &&\
@@ -43,7 +43,7 @@ RUN \
     apt -y install code
 
 RUN \
-    deluser ubuntu &&\
+#    deluser ubuntu &&\
     groupadd -g 9997 everybody &&\
     groupadd -g 10147 u0_a147 &&\
     useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo,9997,root,everybody,10147 -u 10147 -p "$(openssl passwd -1 kk)" ubuntu 
