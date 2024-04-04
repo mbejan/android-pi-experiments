@@ -43,12 +43,31 @@ RUN \
     apt -y install code
 
 RUN \
+    echo "nameserver 8.8.8.8" > /etc/resolv.conf &&\
+    apt-get install -y git autoconf libtool pkg-config gcc g++ make  libssl-dev libpam0g-dev \
+             libjpeg-dev libx11-dev libxfixes-dev libxrandr-dev  flex bison libxml2-dev \
+             intltool xsltproc xutils-dev python3-libxml2 g++ xutils libfuse-dev \
+             libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev 
+RUN \
+    cd /tmp &&\
+    echo "nameserver 8.8.8.8" > /etc/resolv.conf &&\
+    git clone https://github.com/neutrinolabs/xrdp.git &&\
+    cd xrdp &&\
+    ./bootstrap &&\
+    ./configure --enable-fuse --enable-mp3lame --enable-pixman &&\
+    make install &&\
+    rm -rf /tmp/xrdp
+
+
+RUN \
 #    deluser ubuntu &&\
     groupadd -g 9997 everybody &&\
     groupadd -g 10147 u0_a147 &&\
-    useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo,9997,root,everybody,10147 -u 10147 -p "$(openssl passwd -1 kk)" ubuntu 
+    useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo,9997,root,everybody,10147 -u 10147 -p "$(openssl passwd -1 kk)" ubuntu &&\
+    echo "ubuntu ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ubuntu
 
 COPY ./configs/supervisord.conf /etc/
+COPY ./configs/xrdp.ini /etc/xrdp/
 
 RUN \
     ssh-keygen -A &&\
