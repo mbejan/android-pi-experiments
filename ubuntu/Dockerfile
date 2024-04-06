@@ -47,14 +47,14 @@ RUN \
     apt-get install -y git autoconf libtool pkg-config gcc g++ make  libssl-dev libpam0g-dev \
              libjpeg-dev libx11-dev libxfixes-dev libxrandr-dev  flex bison libxml2-dev \
              intltool xsltproc xutils-dev python3-libxml2 g++ xutils libfuse-dev \
-             libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev 
+             libmp3lame-dev nasm libpixman-1-dev xserver-xorg-dev libfdk-aac-dev libopus-dev
 RUN \
     cd /tmp &&\
     echo "nameserver 8.8.8.8" > /etc/resolv.conf &&\
     git clone https://github.com/neutrinolabs/xrdp.git &&\
     cd xrdp &&\
     ./bootstrap &&\
-    ./configure --enable-fuse --enable-mp3lame --enable-pixman &&\
+    ./configure --with-sound --enable-pixman --with-freetype2 --with-fdkaac --enable-fdkaac --enable-vsock --enable-mp3lame --enable-opus --enable-fuse --enable-txfcodec --enable-painter --enable-rdpsndaudin &&\
     make install &&\
     rm -rf /tmp/xrdp
 
