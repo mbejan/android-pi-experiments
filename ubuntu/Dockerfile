@@ -7,7 +7,7 @@ from ubuntu:22.04
 RUN \
     echo "nameserver 8.8.8.8" > /etc/resolv.conf &&\
     apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev x11proto-core-dev libx11-dev  libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig emacs-gtk sudo ncurses-dev libssl-dev bc python3 supervisor openssh-server remmina net-tools tmux repo xfce4-goodies gvfs-backends smbclient ubuntu-restricted-extras pulseaudio ffmpeg openjdk-11-jdk doublecmd-gtk
+    DEBIAN_FRONTEND=noninteractive apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev x11proto-core-dev libx11-dev  libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig emacs-gtk sudo ncurses-dev libssl-dev bc python3 supervisor openssh-server remmina net-tools tmux repo xfce4-goodies gvfs-backends smbclient ubuntu-restricted-extras pulseaudio ffmpeg openjdk-11-jdk doublecmd-gtk calibre
 
 
 RUN \
