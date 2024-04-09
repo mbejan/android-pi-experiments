@@ -72,6 +72,7 @@ RUN \
     ./configure &&\
     make install &&\
     sed -i 's/console/anybody/g' /etc/X11/Xwrapper.config  &&\
+    sed -i 's/start-pulseaudio-x11/pulseaudio/g' /etc/xdg/autostart/pulseaudio.desktop  &&\
     rm -rf /tmp/xorgxrdp
 
 #audio
