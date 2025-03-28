@@ -1,5 +1,5 @@
 #sudo docker build --network=host --tag=ubuntu:pi .
-#sudo docker rm -f ubuntu; sudo docker run -d -u ubuntu  --net=host --dns=8.8.8.8 --restart always --mount type=bind,source=/data/data/com.termux/files/home/ubuntu,target=/home/ubuntu --mount type=bind,source=/data/export,target=/export --name ubuntu  --security-opt apparmor=unconfined --security-opt seccomp=unconfined --security-opt systempaths=unconfined ubuntu:pi
+#sudo docker rm -f ubuntu; sudo docker run -d -u ubuntu  --net=host --dns=8.8.8.8 --restart always --mount type=bind,source=/data/data/com.termux/files/home/ubuntu,target=/home/ubuntu --mount type=bind,source=/data/export,target=/export --name ubuntu  --privileged --security-opt apparmor=unconfined --security-opt seccomp=unconfined --security-opt systempaths=unconfined ubuntu:pi
 #from ubuntu:22.04
 from ubuntu:24.04
 
@@ -100,7 +100,8 @@ RUN \
     groupadd -g 10147 u0_a147 &&\
     useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo,9997,root,everybody,10147 -u 10147 -p "$(openssl passwd -1 kk)" ubuntu &&\
     echo "ubuntu ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ubuntu &&\
-    chmod 4755 /usr/bin/sudo
+    chmod 4755 /usr/bin/sudo &&\
+    chmod o+x+r+w /tmp
 
 COPY ./configs/supervisord.conf /etc/
 COPY ./configs/xrdp.ini /etc/xrdp/
