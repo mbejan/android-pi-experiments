@@ -81,12 +81,12 @@ COPY packages/pulseaudio-module-xrdp /tmp/pulseaudio-module-xrdp
 
 RUN \
     cd /tmp/pulseaudio-module-xrdp/src/ &&\
-    /usr/bin/mkdir -p '/usr/lib/pulse-15.99.1+dfsg1/modules' &&\
-    /bin/bash ../libtool   --mode=install /usr/bin/install -c   module-xrdp-sink.la module-xrdp-source.la '/usr/lib/pulse-15.99.1+dfsg1/modules' &&\
-    /usr/bin/install -c .libs/module-xrdp-sink.so /usr/lib/pulse-15.99.1+dfsg1/modules/module-xrdp-sink.so &&\
-    /usr/bin/install -c .libs/module-xrdp-sink.lai /usr/lib/pulse-15.99.1+dfsg1/modules/module-xrdp-sink.la &&\
-    /usr/bin/install -c .libs/module-xrdp-source.so /usr/lib/pulse-15.99.1+dfsg1/modules/module-xrdp-source.so &&\
-    /usr/bin/install -c .libs/module-xrdp-source.lai /usr/lib/pulse-15.99.1+dfsg1/modules/module-xrdp-source.la &&\
+    /usr/bin/mkdir -p '/usr/lib/pulse-16.1+dfsg1/modules' &&\
+    /bin/bash ../libtool   --mode=install /usr/bin/install -c   module-xrdp-sink.la module-xrdp-source.la '/usr/lib/pulse-16.1+dfsg1/modules' &&\
+    /usr/bin/install -c .libs/module-xrdp-sink.so /usr/lib/pulse-16.1+dfsg1/modules/module-xrdp-sink.so &&\
+    /usr/bin/install -c .libs/module-xrdp-sink.lai /usr/lib/pulse-16.1+dfsg1/modules/module-xrdp-sink.la &&\
+    /usr/bin/install -c .libs/module-xrdp-source.so /usr/lib/pulse-16.1+dfsg1/modules/module-xrdp-source.so &&\
+    /usr/bin/install -c .libs/module-xrdp-source.lai /usr/lib/pulse-16.1+dfsg1/modules/module-xrdp-source.la &&\
     cd /tmp/pulseaudio-module-xrdp/instfiles &&\
     /usr/bin/mkdir -p '/usr/libexec/pulseaudio-module-xrdp' &&\
     /usr/bin/install -c load_pa_modules.sh '/usr/libexec/pulseaudio-module-xrdp' &&\
@@ -101,7 +101,7 @@ RUN \
     useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo,9997,root,everybody,10147 -u 10147 -p "$(openssl passwd -1 kk)" ubuntu &&\
     echo "ubuntu ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ubuntu &&\
     chmod 4755 /usr/bin/sudo &&\
-    chmod o+x+r+w /tmp
+    chmod -R o+x+r+w /tmp
 
 COPY ./configs/supervisord.conf /etc/
 COPY ./configs/xrdp.ini /etc/xrdp/
